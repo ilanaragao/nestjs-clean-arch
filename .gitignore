@@ -37,14 +37,24 @@ lerna-debug.log*
 
 # dotenv environment variable files
 .env
+.env.development
 .env.development.local
+.env.test
 .env.test.local
 .env.production.local
 .env.local
 
+# Docker
+.docker/*
+!.docker/entrypoint.sh
+!.docker/postgres/Dockerfile
+
 # temp directory
 .temp
 .tmp
+
+# TS
+tsconfig.tsbuildinfo
 
 # Runtime data
 pids
