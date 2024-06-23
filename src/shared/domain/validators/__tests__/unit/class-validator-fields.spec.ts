@@ -33,4 +33,16 @@ describe('ClassValidatorFields unit tests', () => {
       field: ['test error'],
     });
   });
+
+  it('Should validate without errors', () => {
+    const spyValidateSync = jest.spyOn(classValidator, 'validateSync');
+    spyValidateSync.mockReturnValue([]);
+
+    const sut = new StubClassValidatorFields();
+
+    expect(sut.validate({ field: 'test' })).toBeTruthy();
+    expect(spyValidateSync).toHaveBeenCalled();
+    expect(sut.validateData).toStrictEqual({ field: 'test' });
+    expect(sut.errors).toBeNull();
+  });
 });
