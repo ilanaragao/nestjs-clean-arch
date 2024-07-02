@@ -144,5 +144,31 @@ describe('UserEntity integration tests', () => {
 
       expect(entity.updateName).toBeDefined();
     });
+
+    it('Should throw an error when updating a user with invalid password', () => {
+      const entity = new UserEntity(UserDataBuilder({}));
+
+      expect(() => entity.updatePassword(null)).toThrow(
+        'Entity validation error',
+      );
+      expect(() => entity.updatePassword('')).toThrow(
+        'Entity validation error',
+      );
+      expect(() => entity.updatePassword(10 as any)).toThrow(
+        'Entity validation error',
+      );
+      expect(() => entity.updatePassword('a'.repeat(101))).toThrow(
+        'Entity validation error',
+      );
+    });
+
+    it('Should update a valid password', () => {
+      expect.assertions(1);
+      const entity = new UserEntity(UserDataBuilder({}));
+
+      entity.updatePassword('new password');
+
+      expect(entity.updateName).toBeDefined();
+    });
   });
 });
