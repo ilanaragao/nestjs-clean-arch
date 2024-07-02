@@ -92,5 +92,21 @@ describe('UserEntity integration tests', () => {
 
       expect(() => new UserEntity(props)).toThrow('Entity validation error');
     });
+
+    it('Should throw an error when creating a user with invalid createdAd', () => {
+      let props: UserProps = {
+        ...UserDataBuilder({}),
+        createdAt: 10 as any,
+      };
+
+      expect(() => new UserEntity(props)).toThrow('Entity validation error');
+
+      props = {
+        ...UserDataBuilder({}),
+        createdAt: '2021-01-01' as any,
+      };
+
+      expect(() => new UserEntity(props)).toThrow('Entity validation error');
+    });
   });
 });
