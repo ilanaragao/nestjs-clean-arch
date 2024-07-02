@@ -121,4 +121,28 @@ describe('UserEntity integration tests', () => {
       expect(user).toBeInstanceOf(UserEntity);
     });
   });
+
+  describe('update method', () => {
+    it('Should throw an error when updating a user with invalid name', () => {
+      const entity = new UserEntity(UserDataBuilder({}));
+
+      expect(() => entity.updateName(null)).toThrow('Entity validation error');
+      expect(() => entity.updateName('')).toThrow('Entity validation error');
+      expect(() => entity.updateName(10 as any)).toThrow(
+        'Entity validation error',
+      );
+      expect(() => entity.updateName('a'.repeat(256))).toThrow(
+        'Entity validation error',
+      );
+    });
+
+    it('Should update a valid user', () => {
+      expect.assertions(1);
+      const entity = new UserEntity(UserDataBuilder({}));
+
+      entity.updateName('new name');
+
+      expect(entity.updateName).toBeDefined();
+    });
+  });
 });
