@@ -108,5 +108,17 @@ describe('UserEntity integration tests', () => {
 
       expect(() => new UserEntity(props)).toThrow('Entity validation error');
     });
+
+    it('Should a valid user', () => {
+      expect.assertions(1);
+
+      const props: UserProps = {
+        ...UserDataBuilder({}),
+      };
+
+      const user = new UserEntity(props);
+
+      expect(user).toBeInstanceOf(UserEntity);
+    });
   });
 });
